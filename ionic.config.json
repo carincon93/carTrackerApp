@@ -1,0 +1,7 @@
+{
+	"name": "carTracker",
+	"integrations": {
+		"capacitor": {}
+	},
+	"type": "angular"
+}

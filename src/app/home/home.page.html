@@ -1,0 +1,37 @@
+<ion-content [fullscreen]="true">
+	<ion-button (click)="writeToClipboard(car.uid)" *ngIf="car" class="clipboard">
+		<ion-icon name="clipboard" slot="icon-only"></ion-icon>
+		<ion-label slot="start" class="clipboard-text">Copy Car ID</ion-label>
+	</ion-button>
+	<form [formGroup]="formData" (ngSubmit)="onSubmit()" class="car-tracking-form">
+		<ion-list class="search-wrapper">
+			<ion-item>
+				<ion-input formControlName="uid" type="text" placeholder="Enter Car ID for tracking" required></ion-input>
+			</ion-item>
+		</ion-list>
+		<ion-button expand="block" type="submit" class="search-button">
+			<ion-icon name="navigate"></ion-icon>
+		</ion-button>
+	</form>
+
+	<div id="map"></div>
+
+	<div *ngIf="car">
+		<ion-button expand="block" (click)="startTracking()" *ngIf="!isTracking" [attr.disabled]="disabledButton? true:null">
+			<ion-icon name="locate" slot="start"></ion-icon>
+			<div *ngIf="!isTracking && !disabledButton">Start Tracking</div>
+			<div *ngIf="disabledButton">{{ time | async }}</div>
+		</ion-button>
+
+		<ion-button expand="block" (click)="stopTracking()" *ngIf="isTracking">
+			<ion-icon name="hand" slot="start"></ion-icon>
+			Stop Tracking
+		</ion-button>
+	</div>
+	<div *ngIf="!car">
+		<ion-button expand="block" (click)="anonLogin()">
+			<ion-icon name="log-in" slot="start"></ion-icon>
+			Log in
+		</ion-button>
+	</div>
+</ion-content>
